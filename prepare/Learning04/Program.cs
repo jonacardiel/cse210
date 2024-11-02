@@ -1,48 +1,15 @@
-using System;
-using System.Collections.Generic;
-
 class Program
 {
-    static void Main()
+    static void Main(string[] args)
     {
-        // Create a list to store numbers
-        List<int> numbers = new List<int>();
+        // Math Assignment
+        MathAssignment mathAssignment = new MathAssignment("Alice", "Algebra", "3.2", "1-10, 15-20");
+        Console.WriteLine(mathAssignment.GetSummary());
+        Console.WriteLine(mathAssignment.GetHomeworkList());
 
-        // Get numbers from the user until 0 is entered
-        Console.WriteLine("Enter a list of numbers, type 0 when finished.");
-        int number;
-        do
-        {
-            Console.Write("Enter number: ");
-            number = int.Parse(Console.ReadLine());
-            if (number != 0)
-            {
-                numbers.Add(number);
-            }
-        } while (number != 0);
-
-        // Calculate and display the sum, average, and maximum
-        int sum = numbers.Sum();
-        double average = (double)sum / numbers.Count;
-        int max = numbers.Max();
-
-        Console.WriteLine("The sum is: " + sum);
-        Console.WriteLine("The average is: " + average);
-        Console.WriteLine("The largest number is: " + max);
-
-        // Optional stretch challenge: Find the smallest positive number
-        int smallestPositive = numbers.Where(n => n > 0).Min();
-        if (smallestPositive != int.MaxValue)
-        {
-            Console.WriteLine("The smallest positive number is: " + smallestPositive);
-        }
-
-        // Optional stretch challenge: Sort the numbers and display the sorted list
-        numbers.Sort();
-        Console.WriteLine("The sorted list is:");
-        foreach (int num in numbers)
-        {
-            Console.WriteLine(num);
-        }
+        // Writing Assignment
+        WritingAssignment writingAssignment = new WritingAssignment("Bob", "History", "The American Revolution");
+        Console.WriteLine(writingAssignment.GetSummary());
+        Console.WriteLine(writingAssignment.GetWritingInformation());
     }
 }
