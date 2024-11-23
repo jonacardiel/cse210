@@ -1,80 +1,96 @@
-public abstract class Shape
+using System;
+using System.Collections.Generic;
+using System.IO;
+
+public abstract class BaseGoal
 {
-    private string _color;
+    public string Name { get; set; }
+    public int PointsPerCompletion { get; set; }
+    public bool IsComplete { get; set; }
 
-    public Shape(string color)
-    {
-        _color = color;
-    }
-
-    public string Color
-    {
-        get { return _color; }
-        set { _color = value; }
-    }
-
-    public abstract double GetArea();
+    public abstract void RecordCompletion();
+    public abstract int GetPoints();
 }
 
-public class Square : Shape
+public class SimpleGoal : BaseGoal
 {
-    private double _side;
-
-    public Square(string color, double side) : base(color)
+    public override void RecordCompletion()
     {
-        _side = side;
+        IsComplete = true;
     }
 
-    public override double GetArea()
+    public override int GetPoints()
     {
-        return _side * _side;
+        return IsComplete ? PointsPerCompletion : 0;
     }
 }
 
-public class Rectangle : Shape
+public class EternalGoal : BaseGoal
 {
-    private double _width;
-    private double _height;
-
-    public Rectangle(string color, double width, double height) : base(color)
+    public override void RecordCompletion()
     {
-        _width = width;
-        _height = height;
+        // No specific action, points are awarded each time
     }
 
-    public override double GetArea()
+    public override int GetPoints()
     {
-        return _width * _height;
+        return PointsPerCompletion;
     }
 }
 
-public class Circle : Shape
+public class ChecklistGoal : BaseGoal
 {
-    private double _radius;
+    public int TargetCompletions { get; set; }
+    public int CurrentCompletions { get; set; }
 
-    public Circle(string color, double radius) : base(color)
+    public override void RecordCompletion()
     {
-        _radius = radius;
+        CurrentCompletions++;
+        if (CurrentCompletions >= TargetCompletions)
+        {
+            IsComplete = true;
+        }
     }
 
-    public override double GetArea()
+    public override int GetPoints()
     {
-        return Math.PI * _radius * _radius;
+        return CurrentCompletions * PointsPerCompletion + (IsComplete ? 100 : 0); // Bonus for completion
+    }
+}
+
+public class User
+{
+    public string Name { get; set; }
+    public int Score { get; set; }
+    public List<BaseGoal> Goals { get; set; }
+
+    public void AddGoal(BaseGoal goal)
+    {
+        Goals.Add(goal);
+    }
+
+    public void RecordGoalCompletion(int index)
+    {
+        Goals[index].RecordCompletion();
+        Score += Goals[index].GetPoints();
+    }
+
+    public void Save()
+    {
+        // Implement saving user data to a file
+    }
+
+    public void Load()
+    {
+        // Implement loading user data from a file
     }
 }
 
 public class Program
 {
-    public static void Main()
+    static void Main(string[] args)
     {
-        List<Shape> shapes = new List<Shape>();
-        shapes.Add(new Square("Red", 5));
-        shapes.Add(new Rectangle("Blue", 4, 6));
-        shapes.Add(new Circle("Green", 3));
-
-        foreach (Shape shape in shapes)
-        {
-            Console.WriteLine($"Shape: {shape.Color}, Area: {shape.GetArea()}");
-        }
+        User user = new User();
+        // ... (rest of the program logic)
     }
 }
