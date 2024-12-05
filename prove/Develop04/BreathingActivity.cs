@@ -14,8 +14,10 @@ public class BreathingActivity : Activity
             Console.WriteLine("Breathe out...");
             Pause(5);
         }
+        
     }
 
+    
     public override void End()
     {
         Console.WriteLine("You've completed the breathing exercise. Well done!");

@@ -35,6 +35,8 @@ class Program
                 return;
         }
 
+        
+
         // Start the activity
         activity.Start();
         activity.End();

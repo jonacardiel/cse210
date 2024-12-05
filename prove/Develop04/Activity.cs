@@ -10,11 +10,25 @@ public abstract class Activity
     public abstract void Start();
     public abstract void End();
 
+    
     protected void Pause(int seconds)
     {
-        // Implement a pause using Thread.Sleep or a timer
-        
-        Thread.Sleep(seconds * 1000);
+        PauseAndAnimate(seconds);
+    }
+
+    protected void PauseAndAnimate(int seconds)
+    {
+        char[] spinnerChars = { '|', '/', '-', '\\' };
+        int index = 0;
+
+        for (int i = 0; i < seconds * 10; i++)
+        {
+            Console.Write("\b \b" + spinnerChars[index]);
+            index = (index + 1) % spinnerChars.Length;
+            Thread.Sleep(100);
+        }
+
+        Console.Write("\b \b"); // Clear the spinner
     }
 }
 
