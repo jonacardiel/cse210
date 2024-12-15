@@ -1,9 +1,9 @@
 public class Product
 {
-    public string Name { get; set; }
-    public string ProductId { get; set; }
-    public decimal PricePerUnit { get; set; }
-    public int Quantity { get; set; }
+    public string Name ;
+    public string ProductId ;
+    public decimal PricePerUnit ;
+    public int Quantity ;
 
     public decimal CalculateTotalCost()
     {

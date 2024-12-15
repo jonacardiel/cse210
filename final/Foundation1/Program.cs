@@ -2,30 +2,33 @@ class Program
 {
     static void Main(string[] args)
     {
-        List<Video> videos = new List<Video>();
+        // Creating video instances
+        Video video1 = new Video
+        {
+            Title = "Learning C#",
+            Author = "John Doe",
+            LengthInSeconds = 600
+        };
 
-        
-        videos.Add(new Video { Title = "Video 1", Author = "Author 1", LengthInSeconds = 120 });
-        
+        video1.Comments.Add(new Comment { CommenterName = "Alice", CommentText = "Great video!" });
+        video1.Comments.Add(new Comment { CommenterName = "Bob", CommentText = "Very informative." });
 
-        // Add comments to each video
-        videos[0].Comments.Add(new Comment { CommenterName = "User 1", CommentText = "Comment 1" });
-        
+        Video video2 = new Video
+        {
+            Title = "Advanced C# Techniques",
+            Author = "Jane Smith",
+            LengthInSeconds = 900
+        };
 
-        // Iterate through the list of videos and display information
+        video2.Comments.Add(new Comment { CommenterName = "Charlie", CommentText = "Loved the examples." });
+
+        // List of videos
+        List<Video> videos = new List<Video> { video1, video2 };
+
+        // Displaying video summaries
         foreach (var video in videos)
         {
-            Console.WriteLine($"Title: {video.Title}");
-            Console.WriteLine($"Author: {video.Author}");
-            Console.WriteLine($"Length: {video.LengthInSeconds} seconds");
-            Console.WriteLine($"Number of Comments: {video.GetNumberOfComments()}");
-
-            foreach (var comment in video.Comments)
-            {
-                Console.WriteLine($"- {comment.CommenterName}: {comment.CommentText}");
-            }
-
-            Console.WriteLine();
+            Console.WriteLine(video.GetVideoSummary());
         }
     }
 }

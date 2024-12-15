@@ -1,35 +1,32 @@
 public class Order
 {
-    public List<Product> Products { get; set; }
-    public Customer Customer { get; set; }
+    public List<Product> Products { get; set; } = new List<Product>();
+    public Customer Customer ;
 
     public decimal CalculateTotalPrice()
     {
-        // Calculate the total price, including shipping cost
         decimal totalPrice = 0;
-        foreach (Product product in Products)
+        foreach (var product in Products)
         {
             totalPrice += product.CalculateTotalCost();
         }
-        // Add shipping cost based on order total or other factors
-        return totalPrice + CalculateShippingCost();
+
+        decimal shippingCost = Customer.IsInUSA() ? 5 : 35;
+        return totalPrice + shippingCost;
     }
 
     public string GetPackingLabel()
     {
-        // Generate packing label based on product details and customer address
-        return "Packing Label: " + Customer.Name + ", " + Customer.Address.ToString();
+        var label = "Packing Label:\n";
+        foreach (var product in Products)
+        {
+            label += $"{product.Name} (ID: {product.ProductId}) - Quantity: {product.Quantity}\n";
+        }
+        return label;
     }
 
     public string GetShippingLabel()
     {
-        // Generate shipping label based on customer address and order weight/dimensions
-        return "Shipping Label: " + Customer.Name + ", " + Customer.Address.ToString();
-    }
-
-    private decimal CalculateShippingCost()
-    {
-        // Calculate shipping cost based on order weight, distance, or other factors
-        return 10.00m; 
+        return $"Shipping Label:\n{Customer.Name}\n{Customer.Address}";
     }
 }

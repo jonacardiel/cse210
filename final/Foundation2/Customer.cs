@@ -1,7 +1,7 @@
 public class Customer
 {
-    public string Name { get; set; }
-    public Address Address { get; set; }
+    public string Name ;
+    public Address Address ;
 
     public bool IsInUSA()
     {
